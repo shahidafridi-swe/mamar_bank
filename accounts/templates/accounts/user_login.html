@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Login</h3>
+<div>
+    {% if form.non_field_errors %} 
+        {% for error in form.non_field_errors %}
+            <div class="bg-warning border border-warning text-danger px-4 py-3 rounded mt-2" role="alert">
+                <p class="text-danger fst-italic fw-bold">Error!</p>
+                <p class="text-danger fst-italic fw-bold">{{ error }}</p>
+            </div>
+        {% endfor %} 
+    {% endif %}
+</div>
+
+<div class="col-5 m-auto border p-3 rounded bg-secondary-subtle">
+    <form action=""  method="post">
+    {% csrf_token %}
+    {% for hidden_field in form.hidden_fields %} 
+        {{ hidden_field.errors }} 
+        {{ hidden_field }} 
+    {% endfor %}
+    
+    {% for field in form.visible_fields %}
+        <div class="mb-4">
+            <label class="form-label" for="{{ field.id_for_label }}">
+            {{ field.label }}
+            </label>
+            <input class="form-control" name="{{ field.name }}" id="{{ field.id_for_label }}" type="{{ field.widget_type }}">
+        </div>
+        {% if field.errors %} 
+            {% for error in field.errors %}
+                <p class="text-danger fst-italic fw-bold">{{ error }}</p>
+            {% endfor %} 
+        {% endif %} 
+        {% endfor %}
+     
+    <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,56 @@
+<nav class=" navbar navbar-expand-lg bg-success">
+    <div class="container-fluid mx-4">
+      <a class="navbar-brand text-warning fw-bold" href="{% url "home" %}">Mamar Bank</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link  text-white" aria-current="page" href="{% url "report" %}">Report</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" aria-current="page" href="{% url "deposit" %}">Depsoit</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" aria-current="page" href="{% url "withdraw" %}">Withdraw</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" aria-current="page" href="{% url "loan_request" %}">Loan Request</a>
+          </li>          
+          <li class="nav-item">
+            <a class="nav-link text-white" aria-current="page" href="{% url "transfer_money" %}">Money Transfer</a>
+          </li>          
+          {% endif %}
+        </ul>
+        <div>
+          <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+            {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link text-warning fw-bold">Welcome, {{request.user}} (Balance : {{request.user.account.balance}} BDT)</a>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-outline-dark text-white mx-1" href="{% url "profile" %}">Profile</a>
+              </li>
+              <li class="nav-item">
+                <form id="logout-form" method="post" action="{% url 'logout' %}" style="display: inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-outline-dark text-white mx-1">Logout</button>
+              </form>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="btn btn-outline-dark mx-1" href="{% url "register" %}">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-outline-dark mx-1" href="{% url "login" %}">Login</a>
+              </li>
+            {% endif %}
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
