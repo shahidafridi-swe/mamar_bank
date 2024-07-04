@@ -194,6 +194,8 @@ class TransferMoneyView(TransactionCreateMixin):
             transfered_account.balance += amount
             account.save(update_fields=['balance'])
             transfered_account.save(update_fields=['balance'])
+            send_trnasaction_email(self.request.user, amount,"Transfered Money", 'transactions/transfer_money_email.html')
+            send_trnasaction_email(transfered_account.user, amount,"Recieved Money", 'transactions/recieve_money_email.html')
             messages.success(self.request, f"{amount} BDT has been successfully transferred from your account to {transfered_account.account_number}!")
         else:
             messages.error(self.request, "Sorry, the given account number is not found!")
