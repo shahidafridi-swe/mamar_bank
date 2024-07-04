@@ -31,6 +31,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://mamar-bank-bd.onrender.com', 'http://127.0.0.1:8000']
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
